@@ -1,0 +1,16 @@
+# Sphinx build directory
+build/
+
+# Python virtual environment
+.venv/
+
+# General Sphinx files
+*.doctree
+*.pickle
+*.log
+
+# Output files
+_output/
+_static/
+_templates/
+node_modules
