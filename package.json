@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "textlint": "^14.6.0",
+    "textlint-rule-preset-ja-technical-writing": "^12.0.2"
+  },
+  "dependencies": {
+    "textlint-rule-no-dropping-the-ra": "^3.0.0"
+  }
+}
