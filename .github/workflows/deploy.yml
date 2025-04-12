@@ -34,14 +34,23 @@ jobs:
           run: |
             uv run make clean html
         
+        - name: Check environment
+          id: check-env
+          run: |
+            if [ -n "$ACT" ]; then
+              echo "is_act=true" >> $GITHUB_OUTPUT
+            else
+              echo "is_act=false" >> $GITHUB_OUTPUT
+            fi
+        
         # Actionsに用意されているpagesのアクションを使ってbuild/html以下をPagesで公開
         - name: Upload artifact
-          if: ${{ !env.ACT }}
+          if: steps.check-env.outputs.is_act != 'true'
           uses: actions/upload-pages-artifact@v3
           with:
             # Upload entire repository
             path: 'build/html'
         - name: Deploy to GitHub Pages
-          if: ${{ !env.ACT }}
+          if: steps.check-env.outputs.is_act != 'true'
           id: deployment
           uses: actions/deploy-pages@v4
