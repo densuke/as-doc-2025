@@ -1,0 +1,46 @@
+name: Deploy document
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'sources/**'
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+    group: deploy-document-${{ github.ref_name }}
+    cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: Install the latest version of uv
+          uses: astral-sh/setup-uv@v5
+
+        - name: Build the document
+          run: |
+            uv run make clean html
+        
+        # Actionsに用意されているpagesのアクションを使ってbuild/html以下をPagesで公開
+        - name: Upload artifact
+          if: ${{ !env.ACT }}
+          uses: actions/upload-pages-artifact@v3
+          with:
+            # Upload entire repository
+            path: 'build/html'
+        - name: Deploy to GitHub Pages
+          if: ${{ !env.ACT }}
+          id: deployment
+          uses: actions/deploy-pages@v4
