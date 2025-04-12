@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'sources/**'
+      - 'source/**'
   pull_request:
     branches:
       - main
