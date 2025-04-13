@@ -13,3 +13,4 @@
    :caption: Contents:
 
    setup/index.rst
+   docker/index.rst
