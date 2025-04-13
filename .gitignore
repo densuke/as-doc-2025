@@ -10,7 +10,5 @@ build/
 *.log
 
 # Output files
-_output/
-_static/
-_templates/
+build/
 node_modules
